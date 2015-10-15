@@ -9,11 +9,15 @@ def roman_num num
   else
     m = 'M' * (num        / 1000)
     d = 'D' * (num % 1000 /  500)
-    c = 'C' * (num % 500  /  100) 
-    l = 'L' * (num % 100  /   50)
-    x = 'X' * (num % 50   /   10)
-    v = 'V' * (num % 10   /    5)
-    i = 'I' * (num % 5    /    1)
+    if d = 900
+      d = 'CM'
+    end
+	
+  c = 'C' * (num % 500  /  100) 
+  l = 'L' * (num % 100  /   50)
+  x = 'X' * (num % 50   /   10)
+  v = 'V' * (num % 10   /    5)
+  i = 'I' * (num % 5    /    1)
   roman_num = m + d + c + l + x + v + i
   end
 end 
