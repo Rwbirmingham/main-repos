@@ -1,0 +1,37 @@
+puts "Type as many words as you'd like. Enter a blank line to exit:"
+word_list = []
+
+while true
+  word = gets.chomp
+  if word == ""
+    break
+  end
+  
+  word_list.push word
+end
+
+def shuffle unshuffled
+  shuffled = []
+  
+  while unshuffled.length > 0
+    rand_element = rand(unshuffled.length)
+    index = 0
+    new_arr = []
+    
+    unshuffled.each do |x|
+      if index == rand_element
+        shuffled.push x
+      else
+        new_arr.push x
+      end
+      index = index + 1
+    end
+    
+    unshuffled = new_arr
+  end
+  
+  shuffled
+end
+
+puts "Here is your list shuffled:"
+puts shuffle(word_list)
