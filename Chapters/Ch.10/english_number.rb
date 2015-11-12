@@ -31,30 +31,27 @@ def english_number number
                "fourteen", "fifteen", "sixteen",
                "seventeen", "eighteen", "nineteen"]
    
-  hundreds  = ['Hundred ']   
- left = number
+  hundreds  = ["Hundred "]  
+  
+  thousands = [" thousand"]
+  
+  left = number
   write = left/1000
   left = left - write * 1000
   
   if write > 0
-    thousands = english_number write
-    num_string = num_string + thousands + " thousand"
+    if ((write == 1) and (left < 0))
+      num_string = num_string + hundreds[left-1]
+      left = 0
+    else
+      num_string = num_string + thousands[write-1]
+    end
     if left > 0
-      num_string = num_string + " "
+      num_string = num_string + "-"
     end
   end
   
-  left = number
-  write = left/100
-  left = left - write * 100
-  
-  if write > 0
- 
-    num_string = num_string + hundreds[write-1]
-	left = 0
-  end
-  
-  
+    
   write = left/10
   left = left - write * 10
   
