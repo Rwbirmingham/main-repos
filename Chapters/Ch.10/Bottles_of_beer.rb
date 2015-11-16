@@ -1,13 +1,9 @@
-def prompt
-  puts 'Please enter a number.'
-  integer = gets.chomp.to_i
-  if integer < 0
-    puts 'Please enter a number that isn\'t negative.'
-    prompt
-  else  
-    return integer
-  end
-end
+how_many_beers = 9999
+and_now = how_many_beers
+two_left = 2
+two_left = 'two'
+one_left = 1
+one_left = 'one'
 
 def english_number(int)
   numbers_to_name = {
@@ -59,5 +55,14 @@ def english_number(int)
   end
 end
 
-
-puts english_number(prompt)
+while and_now > 2
+  puts english_number(and_now).capitalize + ' bottles of beer on the wall, ' +
+       english_number(and_now) + ' bottles of beer!'
+  and_now = and_now - 1 
+  puts 'Take one down, pass it around, ' +
+       english_number(and_now) + ' bottles of beer on the wall!'
+end
+  puts two_left.to_s.capitalize + ' bottles of beer on the wall, ' + two_left.to_s + ' bottles of beer!'
+  puts 'Take one down, pass it a around, ' + one_left.to_s + ' bottle of beer on the wall'
+  puts one_left.to_s.capitalize + ' bottle of beer on the wall, ' + one_left.to_s + ' bottle of beer!'
+  puts 'Take one down, pass it a around, no more bottles of beer on the wall. '

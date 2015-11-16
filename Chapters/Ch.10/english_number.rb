@@ -1,80 +1,63 @@
 def prompt
-  puts "Please enter an integer greater than zero:"
+  puts 'Please enter a number.'
   integer = gets.chomp.to_i
   if integer < 0
-    puts "Negative numbers are not allowed."
+    puts 'Please enter a number that isn\'t negative.'
     prompt
   else  
     return integer
   end
 end
 
-def english_number number
-  if number < 0
-    return "Please enter a number that isn't negative."
-  end
-  if number == 0
-    return "zero"
-  end
-  
-  num_string = ""
-  
-  ones_place = ["one", "two", "three",
-                "four", "five", "six",
-                "seven", "eight", "nine"]
-              
-  tens_place = ["ten", "twenty", "thirty",
-                "forty", "fifty", "sixty",
-                "seventy", "eighty", "ninety"]
-       
-  teenagers = ["eleven", "twelve", "thirteen",
-               "fourteen", "fifteen", "sixteen",
-               "seventeen", "eighteen", "nineteen"]
-   
-  hundreds  = ["Hundred "]  
-  
-  thousands = [" thousand"]
-  
-  left = number
-  write = left/1000
-  left = left - write * 1000
-  
-  if write > 0
-    if ((write == 1) and (left < 0))
-      num_string = num_string + hundreds[left-1]
-      left = 0
-    else
-      num_string = num_string + thousands[write-1]
-    end
-    if left > 0
-      num_string = num_string + "-"
-    end
-  end
-  
-    
-  write = left/10
-  left = left - write * 10
-  
-  if write > 0
-    if ((write == 1) and (left > 0))
-      num_string = num_string + teenagers[left-1]
-      left = 0
-    else
-      num_string = num_string + tens_place[write-1]
-    end
-    if left > 0
-      num_string = num_string + "-"
+def english_number(int)
+  numbers_to_name = {
+      1000000000000 => "trillion",
+      1000000000 => "billion",
+      1000000 => "million",
+      1000 => "thousand",
+      100 => "hundred",
+      90 => "ninety",
+      80 => "eighty",
+      70 => "seventy",
+      60 => "sixty",
+      50 => "fifty",
+      40 => "forty",
+      30 => "thirty",
+      20 => "twenty",
+      19=>"nineteen",
+      18=>"eighteen",
+      17=>"seventeen", 
+      16=>"sixteen",
+      15=>"fifteen",
+      14=>"fourteen",
+      13=>"thirteen",              
+      12=>"twelve",
+      11 => "eleven",
+      10 => "ten",
+      9 => "nine",
+      8 => "eight",
+      7 => "seven",
+      6 => "six",
+      5 => "five",
+      4 => "four",
+      3 => "three",
+      2 => "two",
+      1 => "one"
+    }
+  str = ""
+  numbers_to_name.each do |num, name|
+    if int == 0
+      return str
+    elsif int.to_s.length == 1 && int/num > 0
+      return str + "#{name}"      
+    elsif int < 100 && int/num > 0
+      return str + "#{name}" if int%num == 0
+      return str + "#{name} " + english_number(int%num)
+    elsif int/num > 0
+      return str + english_number(int/num) + " #{name} " + english_number(int%num)
     end
   end
-  
-  write = left
-  left = 0
-  
-  if write > 0
-    num_string = num_string + ones_place[write-1]
-  end
-  
-  num_string
 end
+
 
 puts english_number(prompt)

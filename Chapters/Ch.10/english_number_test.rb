@@ -1,9 +1,13 @@
-how_many_beers = 99
-and_now = how_many_beers
-two_left = 2
-two_left = 'two'
-one_left = 1
-one_left = 'one'
+def prompt
+  puts "Please enter an integer greater than zero:"
+  integer = gets.chomp.to_i
+  if integer < 0
+    puts "Negative numbers are not allowed."
+    prompt
+  else  
+    return integer
+  end
+end
 
 def english_number number
   if number < 0
@@ -26,20 +30,28 @@ def english_number number
   teenagers = ["eleven", "twelve", "thirteen",
                "fourteen", "fifteen", "sixteen",
                "seventeen", "eighteen", "nineteen"]
-               
-               
+   
+  hundreds  = ["Hundred "]  
+  
+  thousands = [" thousand"]
+  
   left = number
-  write = left/100
-  left = left - write * 100
+  write = left/1000
+  left = left - write * 1000
   
   if write > 0
-    hundreds = english_number write
-    num_string = num_string + hundreds + " hundred"
+    if ((write == 1) and (left < 0))
+      num_string = num_string + hundreds[left-1]
+      left = 0
+    else
+      num_string = num_string + thousands[write-1]
+    end
     if left > 0
-      num_string = num_string + " "
+      num_string = num_string + "-"
     end
   end
   
+    
   write = left/10
   left = left - write * 10
   
@@ -65,14 +77,4 @@ def english_number number
   num_string
 end
 
-while and_now > 2
-  puts english_number(and_now).capitalize + ' bottles of beer on the wall, ' +
-       english_number(and_now) + ' bottles of beer!'
-  and_now = and_now - 1 
-  puts 'Take one down, pass it around, ' +
-       english_number(and_now) + ' bottles of beer on the wall!'
-end
-  puts two_left.to_s.capitalize + ' bottles of beer on the wall, ' + two_left.to_s + ' bottles of beer!'
-  puts 'Take one down, pass it a around, ' + one_left.to_s + ' bottle of beer on the wall'
-  puts one_left.to_s.capitalize + ' bottle of beer on the wall, ' + one_left.to_s + ' bottle of beer!'
-  puts 'Take one down, pass it a around, no more bottles of beer on the wall. '
+puts english_number(prompt)
