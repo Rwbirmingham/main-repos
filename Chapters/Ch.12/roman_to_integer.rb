@@ -1,24 +1,39 @@
+def prompt
+  puts "Type your favorite roman numeral."
+  roman = gets.chomp
+end 
 
-ROMAN_MAP = { 1 => "I",
-                  4 => "IV",
-                  5 => "V",
-                  9 => "IX",
-                  10 => "X",
-                  40 => "XL",
-                  50 => "L",
-                  90 => "XC",
-                  100 => "C",
-                  400 => "CD",
-                  500 => "D",
-                  900 => "CM",
-                  1000 => "M" }
-
-ROMAN_NUMERALS = Array.new(3999) do |index|
-  target = index + 1
-  ROMAN_MAP.keys.sort { |a, b| b <=> a }.inject("") do |roman, div|
-  times, target = target.divmod(div)
-      roman << ROMAN_MAP[div] * times
+def roman_to_integer roman
+  digit_vals = {'i' => 1,
+                'v' => 5,
+                'x' => 10,
+                'l' => 50,
+                'c' => 100,
+                'd' => 500,
+                'm' => 1000}
+  total = 0
+  prev = 0
+  index = roman.length - 1
+  while index >= 0
+    c = roman[index].downcase
+    index = index - 1
+    val = digit_vals[c]
+    if !val
+      puts 'This is not a valid roman numeral!'
+      puts roman_to_integer (prompt)
+	  return
+	  
+    end
+    if val < prev
+      val = val * -1
+    else
+      prev = val
+    end
+    total = total + val
   end
+  total
 end
-puts(index('mcmxcix'))
-puts(index('CCCLXV'))
+
+
+puts (roman_to_integer (prompt))
+puts 'There you go!'
